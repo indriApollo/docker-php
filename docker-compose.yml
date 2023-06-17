@@ -7,13 +7,14 @@ services:
         container_name: php-app
         working_dir: /var/www/
         volumes:
-            - ./:/var/www
+            - ./var/www:/var/www
         networks:
             - app-network
 
     # MySQL database service
     db:
-        image: mysql:5.7
+        platform: linux/amd64
+        image: mysql:debian
         container_name: mysql-db
         ports:
             - "3306:3306"
@@ -34,7 +35,7 @@ services:
         ports:
             - 8000:80
         volumes:
-            - ./:/var/www
+            - ./var/www:/var/www
             - ./nginx/conf.d/:/etc/nginx/conf.d/
         networks:
             - app-network
